@@ -1,4 +1,4 @@
-import JSXComponent from 'metal-jsx';
+import JSXComponent, {Config} from 'metal-jsx';
 import * as D3 from 'd3';
 
 const RIGHT = 2;
@@ -6,10 +6,20 @@ const BOTTOM = 3;
 
 class Axis extends JSXComponent {
     render() {
-        return <g ref="axis" class="axis" />
+        const {
+            d3Axis,
+            d3Scale,
+            domain,
+            range,
+            ticks,
+            tickFormat,
+            ...otherProps
+        } = this.props;
+
+        return <g ref="axis" class="axis" {...otherProps} />
     }
 
-    attached() {
+    rendered() {
         const {
             d3Axis,
             d3Scale,
@@ -22,38 +32,34 @@ class Axis extends JSXComponent {
         const scale = d3Scale().range(range).domain(domain);
         
         const axis = d3Axis(scale)
+            .ticks(ticks)
 			.tickFormat(tickFormat)
 
         axis(
-            D3.select(this.element)
+            D3.select(this.refs.axis)
         );
     }
 }
 
+Axis.PROPS = {
+    range: Config.array().value([]),
+    domain: Config.array().value([]),
+}
+
 export const RightAxis = class RightAxis extends JSXComponent {
     render () {
-        const {
-            orientation,
-            ...otherProps
-        } = this.props;
-
         return <Axis 
             d3Axis={D3.axisRight} 
-            {...otherProps}
+            {...this.props}
         />
     }
 }
 
 export const BottomAxis = class BottomAxis extends JSXComponent {
     render () {
-        const {
-            orientation,
-            ...otherProps
-        } = this.props;
-
         return <Axis 
             d3Axis={D3.axisBottom} 
-            {...otherProps}
+            {...this.props}
         />
     }
 }

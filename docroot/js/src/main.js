@@ -48,6 +48,9 @@ class AppComponent extends JSXComponent {
 			data,
 			csvLoaded
 		} = this.state;
+		let domain;
+
+		const barWidth = Math.floor(WIDTH / 19) - 1;
 
 		return (
 			<div class="app-component">
@@ -57,6 +60,17 @@ class AppComponent extends JSXComponent {
 					width={BASE_WIDTH}
 				>
 					{csvLoaded && data && (
+						<BottomAxis 
+							d3Scale={D3.scaleLinear}
+							domain={[100, 0]}
+							range={[barWidth, WIDTH - barWidth]}
+							ticks={20}
+							tickFormat={
+								domainValue => Math.round(domainValue / 5) * 5
+							}
+							transform={`translate(0, ${HEIGHT})`}
+						/>
+					) && (
 						<RightAxis 
 							d3Scale={D3.scaleLinear}
 							domain={[
@@ -64,10 +78,11 @@ class AppComponent extends JSXComponent {
 								D3.max(data, entry => entry.people)
 							]}
 							range={[HEIGHT, 0]} 
-							ticks={-WIDTH}
+							ticks={HEIGHT / 100}
 							tickFormat={
 								domainValue => Math.round(domainValue / 1e6) + "M"
 							}
+							transform={`translate(${WIDTH}, 0)`}
 						/>
 					)}
 				</svg>

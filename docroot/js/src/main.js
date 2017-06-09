@@ -5,20 +5,13 @@ import {readCSV} from "lib/util";
 
 import {BottomAxis, RightAxis} from 'components/axis/Axis';
 
-const BASE_HEIGHT = 500;
+import {
+  BASE_HEIGHT,
+  BASE_WIDTH,
+  HEIGHT,
+  WIDTH
+} from './config'
 
-const BASE_WIDTH = 960;
-
-const margin = {
-	bottom: 30, 
-	left: 20,
-	right: 40, 
-	top: 20
-}
-
-const WIDTH = BASE_WIDTH - margin.left - margin.right;
-
-const HEIGHT = BASE_HEIGHT - margin.top - margin.bottom;
 
 class AppComponent extends JSXComponent {
 	created() {

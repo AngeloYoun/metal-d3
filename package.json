@@ -34,6 +34,7 @@
 	"dependencies": {
 		"cross-env": "^3.1.4",
 		"d3": "^4.9.1",
+		"express": "^4.15.3",
 		"lodash": "4.17.4",
 		"metal-jsx": "^2.5.11"
 	},

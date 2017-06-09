@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+	<style>
+
+		svg {
+		font: 10px sans-serif;
+		}
+
+		.y.axis path {
+		display: none;
+		}
+
+		.y.axis line {
+		stroke: #fff;
+		stroke-opacity: .2;
+		shape-rendering: crispEdges;
+		}
+
+		.y.axis .zero line {
+		stroke: #000;
+		stroke-opacity: 1;
+		}
+
+		.title {
+		font: 300 78px Helvetica Neue;
+		fill: #666;
+		}
+
+		.birthyear,
+		.age {
+		text-anchor: middle;
+		}
+
+		.birthyear {
+		fill: #fff;
+		}
+
+		rect {
+		fill-opacity: .6;
+		fill: #e377c2;
+		}
+
+		rect:first-child {
+		fill: #1f77b4;
+		}
+
+	</style>
+
+	<head>
+		<meta charset="UTF-8">
+
+		<script src="/js/dist/bundle.nocsf.js"></script>
+	</head>
+
+	<body>
+		<div id="app" class="app">
+			<!--  -->
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	RC.App.run(
+		{},
+		'app'
+	);
+</script>

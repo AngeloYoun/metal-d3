@@ -1,0 +1,64 @@
+{
+	"babel": {
+		"presets": [
+			"metal-jsx"
+		]
+	},
+	"csfConfig": {
+		"js": {
+			"lint": {
+				"globals": {
+					"RC": true
+				},
+				"rules": {
+					"csf-sort-props": [
+						2,
+						{
+							"casesensitive": true
+						}
+					],
+					"no-unknown-property": 0
+				}
+			}
+		},
+		"path:**/{js/src/**/*,webpack.config.js}": {
+			"js": {
+				"lint": {
+					"parserOptions": {
+						"ecmaVersion": 7
+					}
+				}
+			}
+		}
+	},
+	"dependencies": {
+		"cross-env": "^3.1.4",
+		"d3": "^4.9.1",
+		"lodash": "4.17.4",
+		"metal-jsx": "^2.5.11"
+	},
+	"description": "Metal D3",
+	"devDependencies": {
+		"babel-core": "^6.25.0",
+		"babel-loader": "^7.0.0",
+		"babel-polyfill": "^6.23.0",
+		"babel-preset-latest": "^6.24.1",
+		"babel-preset-stage-2": "^6.24.1",
+		"babel-preset-metal-jsx": "^0.0.2",
+		"webpack": "^2.3.3"
+	},
+	"homepage": "https://github.com/liferay/liferay-plugins-ee",
+	"main": "/docroot/js/src/main.js",
+	"name": "liferay-dossiera-metal-portlet",
+	"private": true,
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/liferay/liferay-portal.git"
+	},
+	"scripts": {
+		"build:dev": "cross-env NODE_ENV=development webpack",
+		"build": "cross-env NODE_ENV=production webpack",
+		"watch": "cross-env NODE_ENV=development webpack --watch"
+	},
+	"version": "1.0.0"
+}

@@ -1,0 +1,21 @@
+{
+    "exclude": [
+        "node_modules"
+    ],
+    "compilerOptions": {
+        "jsx": "preserve",
+        "baseUrl": "./",  // all paths are relative to the baseUrl
+        "paths": {
+            "~/*" : ["*"],   // resolve any `~/foo/bar` to `<baseUrl>/foo/bar`
+            "actions/*": ["./docroot/js/src/actions/*"],
+			"components/*": ["./docroot/js/src/components/*"],
+			"lib/*": ["./docroot/js/src/lib/*"],
+			"middleware/*": ["./docroot/js/src/middleware/*"],
+			"pages/*": ["./docroot/js/src/pages/*"],
+			"reducers/*": ["./docroot/js/src/reducers/*"],
+			"resources/*": ["./docroot/js/src/resources/*"],
+			"store/*": ["./docroot/js/src/store/*"]
+        },
+        "target": "ES6"
+    }
+}

@@ -1,5 +1,17 @@
 import JSXComponent, {Config} from 'metal-jsx';
+import {omit} from 'lodash';
 import {interpolate, timer} from 'd3';
+
+const timingFnMap = {
+    'ease-in-out': easeInOut
+}
+
+export function easeInOut(t, b, c, d) {
+    t /= d/2;
+    if (t < 1) return c/2*t*t + b;
+    t--;
+    return -c/2 * (t*(t-2) - 1) + b;
+}
 
 class Interpolater extends JSXComponent {
     render() {
@@ -15,18 +27,24 @@ class Interpolater extends JSXComponent {
         } = this.state;
         
         const WrappedComponent = wrappedComponent.tag;
+        const mergedData = {...data, ...currentTween}
 
         return (
             <WrappedComponent 
-                data={{...data, ...currentTween}}
+                {...mergedData}
                 {...wrappedComponent.props}
-            />
+            >
+                {wrappedComponent.props.children}
+            </WrappedComponent>
         )
     }
 
-    syncData(newProp, oldProp) {
+    syncData(newProp = {}, oldProp = {}) {
         const {
-            transition
+            interpolate,
+            normalizeInterpolation,
+            transition,
+            timing
         } = this.props;
 
         const interpolater = interpolate(oldProp, newProp)
@@ -39,7 +57,13 @@ class Interpolater extends JSXComponent {
                     timerHandler.stop();
                 }
                 else {
-                     currentTween = interpolater(elapsed / transition)
+                    const timingFn = (typeof timing === 'string') ? timingFnMap[timing] : timing;
+
+                    currentTween = normalizeInterpolation(
+                        interpolater(
+                            timingFn(elapsed, 0, transition, transition) / transition
+                        )
+                    );
                 }
 
                 this.setState(
@@ -54,11 +78,13 @@ class Interpolater extends JSXComponent {
 
 Interpolater.PROPS = {
     data: Config.object(),
-    interpolate: Config.func()
+    normalizeInterpolation: Config.func().value(f => f),
+    interpolate: Config.func().value(interpolate),
+    timing: Config.value(f => f)
 }
 
 Interpolater.STATE = {
-    currentTween: Config.object(),
+    currentTween: Config.value(null),
     interpolater: Config.func()
 }
 
